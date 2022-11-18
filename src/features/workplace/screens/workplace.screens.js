@@ -27,13 +27,19 @@ const Avatar = styled(Image)`
   border-radius: ${(props) => props.theme.sizes[0]};
   width: ${(props) => props.theme.lineHeights.avatar};
   height: ${(props) => props.theme.lineHeights.avatar};
+`;
+const TopBarEnd = styled(View)`
+  flex:1  
+  flex-direction: row;
   justify-content: flex-end;
 `;
 
 export const WorkplaceScreen = () => (
   <SafeArea>
     <TopBar>
-      <Avatar source={require("../asset/avatar.png")} />
+      <TopBarEnd>
+        <Avatar source={require("../asset/avatar.png")} />
+      </TopBarEnd>
     </TopBar>
     <SearchContainer>
       <Searchbar />
