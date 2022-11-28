@@ -4,10 +4,11 @@ import { Card } from "react-native-paper";
 
 export const WorplaceCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.secondary};
+  margin-bottom: ${(props) => props.theme.space[3]};
 `;
 
 export const WorplaceCardCover = styled(Card.Cover)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
+  background-color: ${(props) => props.theme.colors.bg.secondary};
 `;
 
 export const Info = styled.View`
