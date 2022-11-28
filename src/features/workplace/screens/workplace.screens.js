@@ -24,9 +24,22 @@ const Avatar = styled(Image)`
   height: ${(props) => props.theme.lineHeights.avatar};
 `;
 const TopBarEnd = styled(View)`
-  flex:1  
+  flex: 1;
   flex-direction: row;
   justify-content: flex-end;
+`;
+const Logo = styled(Image)`
+  flex-direction: row;
+  width: 130px;
+  height: 80px;
+`;
+const TopBarStart = styled(View)`
+  flex: 1;
+  flex-direction: row;
+`;
+const TopBarCenter = styled(View)`
+  flex-direction: row;
+  justify-content: center;
 `;
 
 const WorkplaceList = styled(FlatList).attrs({
@@ -40,7 +53,12 @@ export const WorkplaceScreen = () => {
   return (
     <SafeArea>
       <TopBar>
-        <Ionicons name="md-menu" size={36} color="black" />
+        <TopBarStart>
+          <Ionicons name="md-menu" size={36} color="black" />
+        </TopBarStart>
+        <TopBarCenter>
+          <Logo source={require("../asset/logo_wup.png")} />
+        </TopBarCenter>
         <TopBarEnd>
           <Avatar source={require("../asset/avatar.png")} />
         </TopBarEnd>
