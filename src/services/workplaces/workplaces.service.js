@@ -1,4 +1,4 @@
-import { mocks } from "./mock";
+import { mocks, mockImages } from "./mock";
 import camelize from "camelize";
 
 export const workplaceRequest = (location = "37.7749295,-122.4194155") => {
@@ -13,6 +13,9 @@ export const workplaceRequest = (location = "37.7749295,-122.4194155") => {
 
 export const workplaceTransform = ({ results = [] }) => {
   const mappedResults = results.map((workplace) => {
+    workplace.photos = workplace.photos.map((p) => {
+      return mockImages[Math.ceil(Math.random() * (mockImages.length - 1))];
+    });
     return {
       ...workplace,
       isOpenNow: workplace.opening_hours && workplace.opening_hours.open_now,

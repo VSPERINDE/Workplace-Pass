@@ -6,6 +6,7 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { WorkplaceContext } from "../../../services/workplaces/workplaces.context";
+import { ActivityIndicator, Colors } from "react-native-paper";
 
 const TopBar = styled(View)`
   padding: ${(props) => props.theme.space[3]};
@@ -48,10 +49,24 @@ const WorkplaceList = styled(FlatList).attrs({
   },
 })``;
 
+const Loading = styled(ActivityIndicator)`
+  margin-left: -25px;
+`;
+const LoadingView = styled(View)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`;
+
 export const WorkplaceScreen = () => {
-  const workplaceContext = useContext(WorkplaceContext);
+  const { workplace, isLoading, error } = useContext(WorkplaceContext);
   return (
     <SafeArea>
+      {isLoading && (
+        <LoadingView>
+          <Loading size={50} animating={true} color={Colors.yellow500} />
+        </LoadingView>
+      )}
       <TopBar>
         <TopBarStart>
           <Ionicons name="md-menu" size={36} color="black" />
@@ -67,8 +82,8 @@ export const WorkplaceScreen = () => {
         <Searchbar />
       </SearchContainer>
       <WorkplaceList
-        data={workplaceContext.workplace}
-        renderItem={() => <WorkplaceInfoCard />}
+        data={workplace}
+        renderItem={({ item }) => <WorkplaceInfoCard workplace={item} />}
         keyExtractor={(item) => item.name}
         // eslint-disable-next-line react-native/no-inline-styles
         contentContainerStyle={{ padding: 16 }}
