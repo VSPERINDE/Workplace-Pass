@@ -25,6 +25,7 @@ export const WorkplaceInfoCard = ({ workplace = {} }) => {
     isOpenNow = true,
     rating = 4,
     isClosedTemporarily,
+    placeId,
   } = workplace;
 
   const ratingArray = Array.from(new Array(Math.round(rating)));
@@ -37,8 +38,13 @@ export const WorkplaceInfoCard = ({ workplace = {} }) => {
           <Text variant="label">{name}</Text>
           <Section>
             <Rating>
-              {ratingArray.map(() => (
-                <SvgXml xml={star} width={20} height={20} />
+              {ratingArray.map((_, i) => (
+                <SvgXml
+                  key={`star-${placeId}-${i}`}
+                  xml={star}
+                  width={20}
+                  height={20}
+                />
               ))}
             </Rating>
             <SectionEnd>

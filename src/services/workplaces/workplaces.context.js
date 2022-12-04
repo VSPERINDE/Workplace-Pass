@@ -1,4 +1,5 @@
-import React, { useState, createContext, useEffect, useMemo } from "react";
+import React, { useState, createContext, useEffect, useContext } from "react";
+import { LocationContext } from "../locations/location.context";
 
 import { workplaceRequest, workplaceTransform } from "./workplaces.service";
 
@@ -8,11 +9,13 @@ export const WorkplaceContextProvider = ({ children }) => {
   const [workplace, setWorkplace] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { location } = useContext(LocationContext);
 
-  const retrieveWorkplace = () => {
+  const retrieveWorkplace = (loc) => {
     setLoading(true);
+    setWorkplace([]);
     setTimeout(() => {
-      workplaceRequest()
+      workplaceRequest(loc)
         .then(workplaceTransform)
         .then((results) => {
           setLoading(false);
@@ -26,8 +29,11 @@ export const WorkplaceContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    retrieveWorkplace();
-  }, []);
+    if (location) {
+      const locationString = `${location.lat},${location.lng}`;
+      retrieveWorkplace(locationString);
+    }
+  }, [location]);
 
   return (
     <WorkplaceContext.Provider

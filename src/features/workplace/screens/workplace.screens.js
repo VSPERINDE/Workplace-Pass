@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Searchbar } from "react-native-paper";
 import { Image, View, FlatList } from "react-native";
 import { WorkplaceInfoCard } from "../components/workplace-info-card.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -7,15 +6,12 @@ import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { WorkplaceContext } from "../../../services/workplaces/workplaces.context";
 import { ActivityIndicator, Colors } from "react-native-paper";
+import { Search } from "../components/search.component";
 
 const TopBar = styled(View)`
   padding: ${(props) => props.theme.space[3]};
   background-color: ${(props) => props.theme.colors.bg.secondary};
   flex-direction: row;
-`;
-const SearchContainer = styled(View)`
-  padding: ${(props) => props.theme.space[2]};
-  background-color: ${(props) => props.theme.colors.bg.secondary};
 `;
 
 const Avatar = styled(Image)`
@@ -59,7 +55,7 @@ const LoadingView = styled(View)`
 `;
 
 export const WorkplaceScreen = () => {
-  const { workplace, isLoading, error } = useContext(WorkplaceContext);
+  const { workplace, isLoading } = useContext(WorkplaceContext);
   return (
     <SafeArea>
       {isLoading && (
@@ -78,9 +74,7 @@ export const WorkplaceScreen = () => {
           <Avatar source={require("../asset/avatar.png")} />
         </TopBarEnd>
       </TopBar>
-      <SearchContainer>
-        <Searchbar />
-      </SearchContainer>
+      <Search />
       <WorkplaceList
         data={workplace}
         renderItem={({ item }) => <WorkplaceInfoCard workplace={item} />}

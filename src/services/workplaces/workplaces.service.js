@@ -1,7 +1,7 @@
 import { mocks, mockImages } from "./mock";
 import camelize from "camelize";
 
-export const workplaceRequest = (location = "37.7749295,-122.4194155") => {
+export const workplaceRequest = (location) => {
   return new Promise((resolve, reject) => {
     const mock = mocks[location];
     if (!mock) {
@@ -18,6 +18,7 @@ export const workplaceTransform = ({ results = [] }) => {
     });
     return {
       ...workplace,
+      address: workplace.vicinity,
       isOpenNow: workplace.opening_hours && workplace.opening_hours.open_now,
       isClosedTemporarily: workplace.business_status === "CLOSED_TEMPORARILY",
     };
