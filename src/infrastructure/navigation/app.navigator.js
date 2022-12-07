@@ -3,8 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeArea } from "../../../src/components/utility/safe-area.component";
 import { Ionicons } from "@expo/vector-icons";
-import { WorkplaceScreen } from "../../../src/features/workplace/screens/workplace.screens";
 import { Text } from "react-native";
+import { WorkplacesNavigator } from "./workplaces.navigator";
+
 const Tab = createBottomTabNavigator();
 
 const tabIcon = {
@@ -46,7 +47,7 @@ export const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen name="Workplaces" component={WorkplaceScreen} />
+        <Tab.Screen name="Workplaces" component={WorkplacesNavigator} />
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Saved" component={SavedScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />

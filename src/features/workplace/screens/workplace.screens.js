@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Image, View, FlatList } from "react-native";
+import { Image, View, FlatList, TouchableOpacity } from "react-native";
 import { WorkplaceInfoCard } from "../components/workplace-info-card.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Ionicons } from "@expo/vector-icons";
@@ -54,7 +54,7 @@ const LoadingView = styled(View)`
   left: 50%;
 `;
 
-export const WorkplaceScreen = () => {
+export const WorkplaceScreen = ({ navigation }) => {
   const { workplace, isLoading } = useContext(WorkplaceContext);
   return (
     <SafeArea>
@@ -77,7 +77,19 @@ export const WorkplaceScreen = () => {
       <Search />
       <WorkplaceList
         data={workplace}
-        renderItem={({ item }) => <WorkplaceInfoCard workplace={item} />}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("WorkplaceDetail", {
+                  workplace: item,
+                })
+              }
+            >
+              <WorkplaceInfoCard workplace={item} />
+            </TouchableOpacity>
+          );
+        }}
         keyExtractor={(item) => item.name}
         // eslint-disable-next-line react-native/no-inline-styles
         contentContainerStyle={{ padding: 16 }}
