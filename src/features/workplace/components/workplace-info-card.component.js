@@ -5,6 +5,7 @@ import star from "../../../../assets/star";
 import open from "../../../../assets/open";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
+import { Favourite } from "../../../components/favourites/favourite.component";
 import {
   Info,
   Rating,
@@ -33,6 +34,7 @@ export const WorkplaceInfoCard = ({ workplace = {} }) => {
   return (
     <DropShadow style={styles.shadowProp}>
       <WorplaceCard elevation={5}>
+        <Favourite workplace={workplace} />
         <WorplaceCardCover key={name} source={{ uri: photos[0] }} />
         <Info>
           <Text variant="label">{name}</Text>

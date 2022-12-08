@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import MapView, { Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 import styled from "styled-components/native";
 import { LocationContext } from "../../../services/locations/location.context";
 import { WorkplaceContext } from "../../../services/workplaces/workplaces.context";
@@ -37,25 +37,28 @@ export const MapScreen = ({ navigation }) => {
           }}
         >
           {workplace.map((workplaces) => {
+            const LatLng = {
+              latitude: workplaces.geometry.location.lat,
+              longitude: workplaces.geometry.location.lng,
+            };
             return (
-              <Marker
+              <MapView.Marker
                 key={workplaces.name}
                 title={workplaces.name}
                 coordinate={{
-                  latitude: workplaces.geometry.location.lat,
-                  longitude: workplaces.geometry.location.lng,
+                  LatLng,
                 }}
               >
                 <MapView.Callout
                   onPress={() =>
                     navigation.navigate("WorkplaceDetail", {
-                      workplace,
+                      workplaces,
                     })
                   }
                 >
-                  <MapCallout workplace={workplace} />
+                  <MapCallout workplaces={workplaces} />
                 </MapView.Callout>
-              </Marker>
+              </MapView.Marker>
             );
           })}
         </Map>

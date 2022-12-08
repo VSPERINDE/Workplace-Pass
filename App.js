@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
 import { WorkplaceContextProvider } from "./src/services/workplaces/workplaces.context";
 import { LocationContextProvider } from "./src/services/locations/location.context";
+import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
 
 import {
   useFonts as useOswald,
@@ -28,11 +29,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <WorkplaceContextProvider>
-            <Navigation />
-          </WorkplaceContextProvider>
-        </LocationContextProvider>
+        <FavouritesContextProvider>
+          <LocationContextProvider>
+            <WorkplaceContextProvider>
+              <Navigation />
+            </WorkplaceContextProvider>
+          </LocationContextProvider>
+        </FavouritesContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
