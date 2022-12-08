@@ -11,8 +11,8 @@ const WorkplaceStack = createStackNavigator();
 export const WorkplacesNavigator = () => {
   return (
     <WorkplaceStack.Navigator
-      headerMode="none"
       screenOptions={{ ...TransitionPresets.ModalPresentationIOS }}
+      headerMode="none"
     >
       <WorkplaceStack.Screen name="Workplace" component={WorkplaceScreen} />
       <WorkplaceStack.Screen

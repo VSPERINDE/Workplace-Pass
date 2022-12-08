@@ -5,6 +5,7 @@ import { SafeArea } from "../../../src/components/utility/safe-area.component";
 import { Ionicons } from "@expo/vector-icons";
 import { Text } from "react-native";
 import { WorkplacesNavigator } from "./workplaces.navigator";
+import { MapScreen } from "../../features/map/screens/map.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,11 +16,6 @@ const tabIcon = {
   Saved: "md-bookmark",
 };
 
-const MapScreen = () => (
-  <SafeArea>
-    <Text>Map</Text>
-  </SafeArea>
-);
 const SettingsScreen = () => (
   <SafeArea>
     <Text>Settings</Text>
