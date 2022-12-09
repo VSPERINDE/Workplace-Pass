@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
 import { WorkplaceContextProvider } from "./src/services/workplaces/workplaces.context";
 import { LocationContextProvider } from "./src/services/locations/location.context";
 import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
+import * as firebase from "firebase/app";
 
 import {
   useFonts as useOswald,
@@ -12,6 +13,18 @@ import {
 } from "@expo-google-fonts/oswald";
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 import { Navigation } from "./src/infrastructure/navigation/index";
+import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCGIFMFsRamwzqIj5TgrP4w_tOD5mnHjB8",
+  authDomain: "office-pass-fd687.firebaseapp.com",
+  projectId: "office-pass-fd687",
+  storageBucket: "office-pass-fd687.appspot.com",
+  messagingSenderId: "552236221648",
+  appId: "1:552236221648:web:db2922fe521a74b7cf8ad5",
+};
+
+firebase.initializeApp(firebaseConfig);
 
 export default function App() {
   const [oswaldLoaded] = useOswald({
@@ -29,13 +42,15 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            <WorkplaceContextProvider>
-              <Navigation />
-            </WorkplaceContextProvider>
-          </LocationContextProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <WorkplaceContextProvider>
+                <Navigation />
+              </WorkplaceContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
+        </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
