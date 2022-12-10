@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeArea } from "../../../src/components/utility/safe-area.component";
 import { Ionicons } from "@expo/vector-icons";
-import { Text } from "react-native";
+import { Text, Button } from "react-native";
 import { WorkplacesNavigator } from "./workplaces.navigator";
 import { MapScreen } from "../../features/map/screens/new-map.screen";
 import { FavouriteScreen } from "../../components/favourites/favourite.screens";
 import { WorkplaceContextProvider } from "../../services/workplaces/workplaces.context";
 import { LocationContextProvider } from "../../services/locations/location.context";
 import { FavouritesContextProvider } from "../../services/favourites/favourites.context";
+import { AuthenticationContext } from "../../services/authentication/authentication.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,11 +20,15 @@ const tabIcon = {
   Favourites: "md-heart",
 };
 
-const SettingsScreen = () => (
-  <SafeArea>
-    <Text>Settings</Text>
-  </SafeArea>
-);
+const SettingsScreen = () => {
+  const { onLogout } = useContext(AuthenticationContext);
+  return (
+    <SafeArea>
+      <Text>Settings</Text>
+      <Button title="logout" onPress={() => onLogout()} />
+    </SafeArea>
+  );
+};
 
 const createScreenOptions = ({ route }) => {
   const iconName = tabIcon[route.name];
