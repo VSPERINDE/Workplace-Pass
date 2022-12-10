@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
-import { WorkplaceContextProvider } from "./src/services/workplaces/workplaces.context";
-import { LocationContextProvider } from "./src/services/locations/location.context";
-import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
-import * as firebase from "firebase/app";
+
+import { initializeApp } from "firebase/app";
 
 import {
   useFonts as useOswald,
@@ -24,7 +22,7 @@ const firebaseConfig = {
   appId: "1:552236221648:web:db2922fe521a74b7cf8ad5",
 };
 
-firebase.initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 export default function App() {
   const [oswaldLoaded] = useOswald({
@@ -43,13 +41,7 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <AuthenticationContextProvider>
-          <FavouritesContextProvider>
-            <LocationContextProvider>
-              <WorkplaceContextProvider>
-                <Navigation />
-              </WorkplaceContextProvider>
-            </LocationContextProvider>
-          </FavouritesContextProvider>
+          <Navigation />
         </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
