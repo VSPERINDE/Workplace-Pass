@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import MapView from "react-native-maps";
+import MapView, { Callout, Marker } from "react-native-maps";
 import styled from "styled-components/native";
 import { LocationContext } from "../../../services/locations/location.context";
 import { WorkplaceContext } from "../../../services/workplaces/workplaces.context";
@@ -24,45 +24,42 @@ export const MapScreen = ({ navigation }) => {
   }, [location, viewport]);
 
   return (
-    console.log(workplace),
-    (
-      <>
-        <Search />
-        <Map
-          region={{
-            latitude: lat,
-            longitude: lng,
-            latitudeDelta: latDelta,
-            longitudeDelta: 0.02,
-          }}
-        >
-          {workplace.map((workplaces) => {
-            const LatLng = {
-              latitude: workplaces.geometry.location.lat,
-              longitude: workplaces.geometry.location.lng,
-            };
-            return (
-              <MapView.Marker
-                key={workplaces.name}
-                title={workplaces.name}
-                coordinate={{
-                  LatLng,
-                }}
+    <>
+      <Search />
+      <Map
+        region={{
+          latitude: lat,
+          longitude: lng,
+          latitudeDelta: latDelta,
+          longitudeDelta: 0.02,
+        }}
+      >
+        {workplace.map((workplaces) => {
+          const LatLng = {
+            latitude: workplaces.geometry.location.lat,
+            longitude: workplaces.geometry.location.lng,
+          };
+          return (
+            <Marker
+              key={workplaces.name}
+              title={workplaces.name}
+              coordinate={{
+                LatLng,
+              }}
+            >
+              <Callout
+                onPress={() =>
+                  navigation.navigate("WorkplaceDetail", {
+                    workplaces,
+                  })
+                }
               >
-                <MapView.Callout
-                  onPress={() =>
-                    navigation.navigate("WorkplaceDetail", {
-                      workplaces,
-                    })
-                  }
-                >
-                  <MapCallout workplaces={workplaces} />
-                </MapView.Callout>
-              </MapView.Marker>
-            );
-          })}
-        </Map>
-      </>
-    )
+                <MapCallout workplaces={workplaces} />
+              </Callout>
+            </Marker>
+          );
+        })}
+      </Map>
+    </>
   );
 };
