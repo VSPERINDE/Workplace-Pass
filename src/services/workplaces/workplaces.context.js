@@ -14,18 +14,17 @@ export const WorkplaceContextProvider = ({ children }) => {
   const retrieveWorkplace = (loc) => {
     setLoading(true);
     setWorkplace([]);
-    setTimeout(() => {
-      workplaceRequest(loc)
-        .then(workplaceTransform)
-        .then((results) => {
-          setLoading(false);
-          setWorkplace(results);
-        })
-        .catch((err) => {
-          setLoading(false);
-          setError(err);
-        });
-    }, 2000);
+    workplaceRequest(loc)
+      .then(workplaceTransform)
+      .then((results) => {
+        setLoading(false);
+        setWorkplace(results);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        setError(err);
+      });
   };
 
   useEffect(() => {

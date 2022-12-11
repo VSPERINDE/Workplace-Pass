@@ -1,21 +1,15 @@
-import { mocks, mockImages } from "./mock";
 import camelize from "camelize";
 
 export const workplaceRequest = (location) => {
-  return new Promise((resolve, reject) => {
-    const mock = mocks[location];
-    if (!mock) {
-      reject("404 - Not found");
-    }
-    resolve(mock);
+  return fetch(
+    `http://127.0.0.1:5001/office-pass-fd687/us-central1/placesNearby?location=${location}`
+  ).then((res) => {
+    return res.json();
   });
 };
 
 export const workplaceTransform = ({ results = [] }) => {
   const mappedResults = results.map((workplace) => {
-    workplace.photos = workplace.photos.map((p) => {
-      return mockImages[Math.ceil(Math.random() * (mockImages.length - 1))];
-    });
     return {
       ...workplace,
       address: workplace.vicinity,

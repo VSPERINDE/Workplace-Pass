@@ -8,12 +8,13 @@ import { WorkplaceScreen } from "../../features/workplace/screens/workplace.scre
 
 const WorkplaceStack = createStackNavigator();
 
+const createScreenOptions = () => {
+  return { headerShown: false, ...TransitionPresets.ModalPresentationIOS };
+};
+
 export const WorkplacesNavigator = () => {
   return (
-    <WorkplaceStack.Navigator
-      screenOptions={{ ...TransitionPresets.ModalPresentationIOS }}
-      headerMode="none"
-    >
+    <WorkplaceStack.Navigator screenOptions={createScreenOptions}>
       <WorkplaceStack.Screen name="Workplace" component={WorkplaceScreen} />
       <WorkplaceStack.Screen
         name="WorkplaceDetail"

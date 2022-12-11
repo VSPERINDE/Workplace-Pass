@@ -20,12 +20,14 @@ import {
 export const WorkplaceInfoCard = ({ workplace = {} }) => {
   const {
     name = "Sperinde Advogados",
-    icon,
-    photos = [require("../asset/workplace.png")],
+    icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+    photos = [
+      "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80",
+    ],
     address = "Rua Pero Vaz de Caminha",
     isOpenNow = true,
     rating = 4,
-    isClosedTemporarily,
+    isClosedTemporarily = true,
     placeId,
   } = workplace;
 
