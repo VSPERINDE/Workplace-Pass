@@ -32,13 +32,16 @@ export const SettingsScreen = ({ navigation }) => {
       </AvatarContainer>
       <List.Section>
         <SettingsItem
-          style={{ padding: 16 }}
           title="Favourites"
           left={(props) => <List.Icon {...props} color="black" icon="heart" />}
           onPress={() => navigation.navigate("Favourites")}
         />
         <SettingsItem
-          style={{ padding: 16 }}
+          title="Contacts"
+          left={(props) => <List.Icon {...props} color="black" icon="phone" />}
+          onPress={() => navigation.navigate("Contacts")}
+        />
+        <SettingsItem
           title="Logout"
           left={(props) => <List.Icon {...props} color="black" icon="logout" />}
           onPress={onLogout}

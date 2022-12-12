@@ -8,6 +8,7 @@ import { WorkplaceContextProvider } from "../../services/workplaces/workplaces.c
 import { LocationContextProvider } from "../../services/locations/location.context";
 import { FavouritesContextProvider } from "../../services/favourites/favourites.context";
 import { SettingsScreen } from "../../features/settings/screens/settings.screens";
+import { SettingsNavigator } from "./settings.navigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +39,7 @@ export const AppNavigator = () => (
           <Tab.Screen name="Workplaces" component={WorkplacesNavigator} />
           <Tab.Screen name="Map" component={MapScreen} />
           <Tab.Screen name="Favourites" component={FavouriteScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen name="Settings" component={SettingsNavigator} />
         </Tab.Navigator>
       </WorkplaceContextProvider>
     </LocationContextProvider>
