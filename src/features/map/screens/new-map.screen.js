@@ -12,7 +12,7 @@ const Map = styled(MapView)`
   width: 100%;
 `;
 
-export const MapScreen = () => {
+export const MapScreen2 = () => {
   const { location } = useContext(LocationContext);
   const { workplace = [] } = useContext(WorkplaceContext);
 

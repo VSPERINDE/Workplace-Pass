@@ -7,7 +7,6 @@ import { FavouriteScreen } from "../../components/favourites/favourite.screens";
 import { WorkplaceContextProvider } from "../../services/workplaces/workplaces.context";
 import { LocationContextProvider } from "../../services/locations/location.context";
 import { FavouritesContextProvider } from "../../services/favourites/favourites.context";
-import { SettingsScreen } from "../../features/settings/screens/settings.screens";
 import { SettingsNavigator } from "./settings.navigator";
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +15,7 @@ const tabIcon = {
   Workplaces: "md-home",
   Map: "md-map",
   Settings: "md-settings",
-  Favourites: "md-heart",
+  Favourites: "md-star",
 };
 
 const createScreenOptions = ({ route }) => {
@@ -31,7 +30,7 @@ const createScreenOptions = ({ route }) => {
   };
 };
 
-export const AppNavigator = () => (
+export const AppCoworkingNavigator = () => (
   <FavouritesContextProvider>
     <LocationContextProvider>
       <WorkplaceContextProvider>

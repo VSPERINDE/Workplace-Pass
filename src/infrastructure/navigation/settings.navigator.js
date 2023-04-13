@@ -16,7 +16,7 @@ const createScreenOptions = () => {
   };
 };
 
-export const SettingsNavigator = ({ navigation }) => {
+export const SettingsNavigator = () => {
   return (
     <SettingsStack.Navigator screenOptions={createScreenOptions}>
       <SettingsStack.Screen

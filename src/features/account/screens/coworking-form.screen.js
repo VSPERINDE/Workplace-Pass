@@ -15,24 +15,12 @@ import {
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
-import { ToggleButton } from "react-native-paper";
 
-export const RegisterScreen = ({ navigation }) => {
+export const CoworkingFormScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
-  const { onRegister, isLoading, error } = useContext(AuthenticationContext);
-  const [status, setStatus] = React.useState("unchecked");
-  const [icon, setIcon] = React.useState("checkbox-blank-outline");
-  const onButtonToggle = () => {
-    if (status === "checked") {
-      setStatus("unchecked");
-      setIcon("checkbox-blank-outline");
-    } else {
-      setStatus("checked");
-      setIcon("checkbox-marked");
-    }
-  };
+  const { isLoading, error } = useContext(AuthenticationContext);
 
   return (
     <AccountBackground>
@@ -69,15 +57,6 @@ export const RegisterScreen = ({ navigation }) => {
             onChangeText={(p) => setRepeatedPassword(p)}
           />
         </Spacer>
-        <Spacer>
-          <Text>Select to register as a coworking space</Text>
-          <ToggleButton
-            icon={icon}
-            value="coworking"
-            status={status}
-            onPress={onButtonToggle}
-          />
-        </Spacer>
         {error && (
           <ErrorContainer size="large">
             <Text variant="error">{error}</Text>
@@ -85,14 +64,7 @@ export const RegisterScreen = ({ navigation }) => {
         )}
         <Spacer size="large">
           {!isLoading ? (
-            <AuthButton
-              icon="email"
-              mode="contained"
-              onPress={() => {
-                onRegister(email, password, repeatedPassword, status);
-                navigation.navigate("CoworkingFormScreen");
-              }}
-            >
+            <AuthButton icon="email" mode="contained" onPress={() => {}}>
               Register
             </AuthButton>
           ) : (
