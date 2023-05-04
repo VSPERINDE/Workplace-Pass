@@ -90,7 +90,9 @@ export const RegisterScreen = ({ navigation }) => {
               mode="contained"
               onPress={() => {
                 onRegister(email, password, repeatedPassword, status);
-                navigation.navigate("CoworkingFormScreen");
+                if (status === "checked") {
+                  navigation.navigate("CoworkingFormScreen");
+                }
               }}
             >
               Register

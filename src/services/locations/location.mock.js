@@ -1,20 +1,20 @@
 export const locations = {
-  antwerp: {
+  canoas: {
     results: [
       {
         geometry: {
           location: {
-            lng: 4.402464,
-            lat: 51.219448,
+            lng: -29.90359115047396,
+            lat: -51.18483723827526,
           },
           viewport: {
             northeast: {
-              lat: 51.2145994302915,
-              lng: 4.418074130291502,
+              lat: -29.882995,
+              lng: -51.124481,
             },
             southwest: {
-              lat: 51.2119014697085,
-              lng: 4.415376169708497,
+              lat: -29.955377,
+              lng: -51.259945,
             },
           },
         },

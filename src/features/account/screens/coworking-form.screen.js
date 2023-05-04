@@ -15,12 +15,12 @@ import {
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
+import { workplace } from "../../workplace/components/workplace-info-card.component";
+import { workplaceRegister } from "../../../services/workplaces/workplaces.service";
 
 export const CoworkingFormScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatedPassword, setRepeatedPassword] = useState("");
   const { isLoading, error } = useContext(AuthenticationContext);
+  const [newItem, setNewItem] = useState({ workplace });
 
   return (
     <AccountBackground>
@@ -31,30 +31,25 @@ export const CoworkingFormScreen = ({ navigation }) => {
       <AccountContainer>
         <AuthInput
           label="E-mail"
-          value={email}
           textContentType="emailAddress"
           keyboardType="email-address"
           autoCapitalize="none"
-          onChangeText={(u) => setEmail(u)}
+          onChangeText={(e) => setNewItem({ ...newItem, email: e })}
         />
         <Spacer size="large">
           <AuthInput
-            label="Password"
-            value={password}
-            textContentType="password"
-            secureTextEntry
+            label="Name"
+            textContentType="name"
             autoCapitalize="none"
-            onChangeText={(p) => setPassword(p)}
+            onChangeText={(n) => setNewItem({ ...newItem, name: n })}
           />
         </Spacer>
         <Spacer size="large">
           <AuthInput
-            label="Repeat Password"
-            value={repeatedPassword}
-            textContentType="password"
-            secureTextEntry
+            label="Address"
+            textContentType="fullStreetAddress"
             autoCapitalize="none"
-            onChangeText={(p) => setRepeatedPassword(p)}
+            onChangeText={(a) => setNewItem({ ...newItem, address: a })}
           />
         </Spacer>
         {error && (
@@ -64,7 +59,13 @@ export const CoworkingFormScreen = ({ navigation }) => {
         )}
         <Spacer size="large">
           {!isLoading ? (
-            <AuthButton icon="email" mode="contained" onPress={() => {}}>
+            <AuthButton
+              icon="email"
+              mode="contained"
+              onPress={() => {
+                workplaceRegister(newItem);
+              }}
+            >
               Register
             </AuthButton>
           ) : (

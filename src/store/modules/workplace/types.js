@@ -1,0 +1,17 @@
+const types = {
+  ALL_WORKPLACES: "@workplace/ALL",
+  GET_WORKPLACE: "@workplace/GET",
+  UPDATE_WORKPLACE: "@workplace/UPDATE",
+  ALL_SERVICOS: "@workplace/ALL_SERVICOS",
+  UPDATE_SERVICOS: "@workplace/UPDATE_SERVICOS",
+  UPDATE_AGENDAMENTO: "@workplace/UPDATE_AGENDAMENTO",
+  UPDATE_FORM: "@workplace/UPDATE_FORM",
+  FILTER_AGENDA: "@workplace/FILTER_AGENDA",
+  UPDATE_AGENDA: "@workplace/UPDATE_AGENDA",
+  UPDATE_COLABORADORES: "@workplace/UPDATE_COLABORADORES",
+  RESET_AGENDAMENTO: "@workplace/RESET_AGENDAMENTO",
+  SAVE_AGENDAMENTO: "@workplace/SAVE_AGENDAMENTO",
+  RESET_WORKPLACE: "@workplace/RESET_WORKPLACE",
+};
+
+export default types;

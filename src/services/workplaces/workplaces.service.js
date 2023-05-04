@@ -1,27 +1,40 @@
-import { mocks, mockImages } from "./mock";
-import camelize from "camelize";
+import { doc, updateDoc } from "firebase/firestore";
 
-export const workplaceRequest = (location) => {
+import camelize from "camelize";
+import { database } from "../../infrastructure/database/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { allWorkplace } from "../../store/modules/workplace/sagas";
+
+export const workplaceRequest = () => {
+  const dispatch = useDispatch();
+
+  const { workplaces } = useSelector((state) => state.workplaces);
+  useEffect(() => {
+    dispatch(allWorkplace());
+  }, []);
+
   return new Promise((resolve, reject) => {
-    const mock = mocks[location];
-    if (!mock) {
+    if (!workplaces) {
       reject("404 - Not found");
     }
-    resolve(mock);
+    resolve(workplaces);
   });
 };
 
 export const workplaceTransform = ({ results = [] }) => {
   const mappedResults = results.map((workplace) => {
-    workplace.photos = workplace.photos.map((p) => {
-      return mockImages[Math.ceil(Math.random() * (mockImages.length - 1))];
-    });
     return {
-      ...workplace,
-      address: workplace.vicinity,
-      isOpenNow: workplace.opening_hours && workplace.opening_hours.open_now,
-      isClosedTemporarily: workplace.business_status === "CLOSED_TEMPORARILY",
+      name: workplace.nome,
+      photos: workplace.capa,
+      address: workplace.endereco.rua,
     };
   });
   return camelize(mappedResults);
+};
+
+export const workplaceRegister = async (newItem) => {
+  const docRef = doc(database, "workplace-accounts", newItem.email);
+  await updateDoc(docRef, {
+    ...newItem,
+  });
 };

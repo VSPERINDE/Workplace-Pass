@@ -4,6 +4,8 @@ import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./src/infrastructure/database/firebase";
+import { Provider as StoreProvider } from "react-redux";
+import store from "./src/store";
 
 import {
   useFonts as useOswald,
@@ -30,11 +32,13 @@ export default function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <AuthenticationContextProvider>
-          <Navigation />
-        </AuthenticationContextProvider>
-      </ThemeProvider>
+      <StoreProvider store={store}>
+        <ThemeProvider theme={theme}>
+          <AuthenticationContextProvider>
+            <Navigation />
+          </AuthenticationContextProvider>
+        </ThemeProvider>
+      </StoreProvider>
       <ExpoStatusBar style="auto" />
     </>
   );

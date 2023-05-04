@@ -32,7 +32,7 @@ export const FavouritesContextProvider = ({ children }) => {
 
   const remove = (workplace) => {
     const newFavourites = favourites.filter(
-      (x) => x.placeId !== workplace.placeId
+      (x) => x._id !== workplace._id
     );
 
     setFavourites(newFavourites);

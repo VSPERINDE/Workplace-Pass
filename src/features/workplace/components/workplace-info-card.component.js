@@ -17,37 +17,26 @@ import {
 
 export const WorkplaceInfoCard = ({ workplace = {} }) => {
   const {
-    name = "Sperinde Advogados",
-    icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-    photos = [
-      "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80",
-    ],
-    address = "Rua Pero Vaz de Caminha",
-    isOpenNow = true,
-    rating = 4,
-    isClosedTemporarily = true,
-    placeId,
+    _id,
+    nome = "Workplace",
+    foto = "foto-1.jpg",
+    endereco = {
+      rua: "rua",
+    },
   } = workplace;
 
-  const ratingArray = Array.from(new Array(Math.round(rating)));
+  console.log(workplace);
+
+  const isClosedTemporarily = false;
+  const isOpenNow = true;
 
   return (
     <WorplaceCard elevation={5}>
       <Favourite workplace={workplace} />
-      <WorplaceCardCover key={name} source={{ uri: photos[0] }} />
+      <WorplaceCardCover key={_id} source={{ uri: foto }} />
       <Info>
-        <Text variant="label">{name}</Text>
+        <Text variant="label">{nome}</Text>
         <Section>
-          <Rating>
-            {ratingArray.map((_, i) => (
-              <SvgXml
-                key={`star-${placeId}-${i}`}
-                xml={star}
-                width={20}
-                height={20}
-              />
-            ))}
-          </Rating>
           <SectionEnd>
             {isClosedTemporarily && (
               <Text variant="error">CLOSED TEMPORARILY</Text>
@@ -55,12 +44,9 @@ export const WorkplaceInfoCard = ({ workplace = {} }) => {
             <Spacer position="left" size="large">
               {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
             </Spacer>
-            <Spacer position="left" size="large">
-              <Icon source={{ uri: icon }} />
-            </Spacer>
           </SectionEnd>
         </Section>
-        <Text variant="caption">{address}</Text>
+        <Text variant="caption">{endereco.rua}</Text>
       </Info>
     </WorplaceCard>
   );

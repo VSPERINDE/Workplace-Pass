@@ -23,9 +23,9 @@ export const WorkplaceDetailScreen = ({ route }) => {
           onPress={() => setDetailExpanded(!detailExpanded)}
         >
           <List.Item title="Description:" />
-          <List.Item title="Address:" description={workplace.address} />
+          <List.Item title="Address:" description={workplace.endereco.rua} />
           <List.Item title="Working Hours:" />
-          <List.Item title="Total of tables: 15" />
+          <List.Item title="Total of tables: " />
         </List.Accordion>
         <List.Accordion
           title="Advantages"
