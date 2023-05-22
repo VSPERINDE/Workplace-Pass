@@ -1,13 +1,27 @@
 import styled from "styled-components/native";
+import { FlatList } from "react-native";
 import { StyleSheet } from "react-native";
+import { theme } from "../../../infrastructure/theme";
+import util from "../../../utils/util";
+
 import {
   Card,
-  Button as ButtonPaper,
-  Badge as BadgePaper,
   Text as TextPaper,
+  Title as TitlePaper,
+  Badge as BadgePaper,
+  Button as ButtonPaper,
+  TextInput as TextInputPaper,
 } from "react-native-paper";
 
-export const WorplaceCard = styled(Card)`
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+export const BookingList = styled(FlatList).attrs({
+  contentContainerStyle: {
+    padding: 16,
+  },
+})``;
+
+export const BookCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.secondary};
   margin-bottom: ${(props) => props.theme.space[3]};
 `;
@@ -17,25 +31,20 @@ export const Icon = styled.Image`
   height: 15px;
 `;
 
-export const WorplaceCardCover = styled(Card.Cover)`
-  background-color: ${(props) => props.theme.colors.bg.secondary};
-`;
+export const BookCardCover = styled(Card.Title)``;
+
+//background-color: ${(props) => props.theme.colors.bg.secondary};
 
 export const Info = styled.View`
   padding: ${(props) => props.theme.space[3]};
 `;
-export const Rating = styled.View`
-  padding-top: ${(props) => props.theme.space[2]};
-  padding-bottom: ${(props) => props.theme.space[2]};
-  flex-direction: row;
-`;
+
 export const Section = styled.View`
   flex-direction: row;
   align-items: center;
 `;
 
 export const SectionEnd = styled.View`
-  flex: 1;
   flex-direction: row;
   justify-content: flex-end;
 `;
@@ -49,18 +58,22 @@ export const styles = StyleSheet.create({
   },
 });
 
-export const Button = styled(ButtonPaper).attrs((props) => ({
-  //buttonColor: props.theme.colors.brand.primary,
-  width: props.block ? "100%" : "auto",
-  height: 60,
-  justifyContent: "center",
-  labelStyle: {
-    color: props.theme.colors.text.primary,
-    letterSpacing: 0,
-    fontSize: 20,
+export const Spacer = styled.View`
+  width: 100%;
+  height: ${(props) => props.size || "10px"};
+`;
+
+export const Cover = styled.Image.attrs((props) => ({
+  source: {
+    uri: props.image,
   },
 }))`
-  background-color: ${(props) => props.theme.colors.brand.primary};
+  width: ${(props) => props.width || "60px"};
+  height: ${(props) => props.height || "70px"};
+  margin: ${(props) => props.spacing || "0 10px 0 0"};
+  border-radius: ${(props) => (props.circle ? props.width : "3px")};
+  border: ${(props) => props.border || "none"};
+  background-color: ${theme.colors.muted};
 `;
 
 export const Box = styled.View`
@@ -84,7 +97,7 @@ export const Box = styled.View`
     "transparent"};
 `;
 
-export const Touchable = styled.TouchableOpacity`
+export const Touchable = styled(TouchableOpacity)`
   flex-direction: ${(props) => props.direction || "row"};
   justify-content: ${(props) => props.justify || "flex-start"};
   align-items: ${(props) => props.align || "flex-start"};
@@ -100,6 +113,38 @@ export const Touchable = styled.TouchableOpacity`
   border: ${(props) => props.border || "none"};
 `;
 
+export const Title = styled(TitlePaper)`
+  color: ${(props) => props.theme.colors.text[props.color || "dark"]};
+  font-size: ${(props) => (props.small ? "22px" : "30px")};
+  padding: ${(props) => (props.hasPadding ? "20px" : "0px")};
+  letter-spacing: -0.8px;
+  line-height: ${(props) => (props.small ? "22px" : "30px")};
+  text-align: ${(props) => props.align || "left"};
+`;
+
+export const Text = styled(TextPaper).attrs({})`
+  color: ${(props) => props.theme.colors.text[props.color || "muted"]};
+  font-size: ${(props) => (props.small ? "13px" : "17px")};
+  margin: ${(props) => props.spacing || 0};
+  padding: ${(props) => (props.hasPadding ? "20px" : "0px")};
+  line-height: ${(props) =>
+    props.composed ? "30px" : props.small ? "13px" : "17px"};
+  text-decoration: ${(props) => (props.underline ? "underline" : "none")};
+  opacity: 0.7;
+  text-align: ${(props) => props.align || "left"};
+`;
+
+export const TextInput = styled(TextInputPaper).attrs({
+  mode: "outlined",
+  activeOutlineColor: theme.colors.brand.primary,
+})`
+  height: 45px;
+  width: 90%;
+  font-size: 20px;
+  align-self: center;
+  background-color: ${theme.colors.ui.light};
+`;
+
 export const Badge = styled(BadgePaper)`
   align-self: flex-start;
   font-size: 16px;
@@ -108,17 +153,18 @@ export const Badge = styled(BadgePaper)`
   padding: 5px 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background: ${(props) => props.theme.colors.ui[props.color || "error"]};
+  background: ${(props) => props.theme.colors.ui[props.colors || "danger"]};
 `;
 
-export const Text = styled(TextPaper).attrs({})`
-  color: ${(props) => props.theme.colors.brand[props.color || "muted"]};
-  font-size: ${(props) => (props.small ? "13px" : "17px")};
-  margin: ${(props) => props.spacing || 0};
-  padding: ${(props) => (props.hasPadding ? "20px" : "0px")};
-  line-height: ${(props) =>
-    props.composed ? "30px" : props.small ? "13px" : "15px"};
-  text-decoration: ${(props) => (props.underline ? "underline" : "none")};
-  opacity: 0.7;
-  text-align: ${(props) => props.align || "left"};
+export const Button = styled(ButtonPaper).attrs((props) => ({
+  width: props.block ? "100%" : "auto",
+  height: 60,
+  justifyContent: "center",
+  labelStyle: {
+    color: props.theme.colors.text.primary,
+    letterSpacing: 0,
+    fontSize: 20,
+  },
+}))`
+  background-color: ${(props) => props.theme.colors.brand.primary};
 `;

@@ -4,16 +4,16 @@ export function allWorkplace() {
   return { type: types.ALL_WORKPLACES };
 }
 
-export function getWorkplace() {
-  return { type: types.GET_WORKPLACE };
+export function getWorkplace(key) {
+  return { type: types.GET_WORKPLACE, key };
 }
 
 export function updateWorkplace(workplace) {
   return { type: types.UPDATE_WORKPLACE, workplace };
 }
 
-export function allServicos() {
-  return { type: types.ALL_SERVICOS };
+export function allServicos(key) {
+  return { type: types.ALL_SERVICOS, key };
 }
 
 export function updateServicos(servicos) {
@@ -50,4 +50,24 @@ export function resetAgendamento() {
 
 export function saveAgendamento() {
   return { type: types.SAVE_AGENDAMENTO };
+}
+
+export function getHorarios() {
+  return { type: types.GET_HORARIOS };
+}
+
+export function getAgendamentos() {
+  return { type: types.GET_AGENDAMENTOS };
+}
+
+export function updateAgendamentos(agendamentos) {
+  return { type: types.UPDATE_AGENDAMENTOS, agendamentos };
+}
+
+export function resetAgendamentos() {
+  return { type: types.RESET_AGENDAMENTOS };
+}
+
+export function removeAgendamento(key) {
+  return { type: types.REMOVE_AGENDAMENTO, key };
 }

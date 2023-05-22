@@ -7,7 +7,7 @@ import {
   Text as TextPaper,
 } from "react-native-paper";
 
-export const WorplaceCard = styled(Card)`
+export const ScheduleCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.secondary};
   margin-bottom: ${(props) => props.theme.space[3]};
 `;
@@ -17,7 +17,7 @@ export const Icon = styled.Image`
   height: 15px;
 `;
 
-export const WorplaceCardCover = styled(Card.Cover)`
+export const ScheduleCardCover = styled(Card.Cover)`
   background-color: ${(props) => props.theme.colors.bg.secondary};
 `;
 
@@ -52,15 +52,20 @@ export const styles = StyleSheet.create({
 export const Button = styled(ButtonPaper).attrs((props) => ({
   //buttonColor: props.theme.colors.brand.primary,
   width: props.block ? "100%" : "auto",
-  height: 60,
+  height: 50,
   justifyContent: "center",
   labelStyle: {
-    color: props.theme.colors.text.primary,
+    color: props.theme.colors.text.inverse,
     letterSpacing: 0,
-    fontSize: 20,
+    fontSize: 15,
   },
 }))`
-  background-color: ${(props) => props.theme.colors.brand.primary};
+  background-color: ${(props) =>
+    props.success
+      ? props.theme.colors.ui.success
+      : props.theme.colors.ui.error};
+  border-radius: 50px;
+  margin: ${(props) => props.spacing || 0};
 `;
 
 export const Box = styled.View`

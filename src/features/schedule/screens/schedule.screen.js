@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
-import { View, FlatList, TouchableOpacity } from "react-native";
-import { WorkplaceInfoCard } from "../components/workplace-info-card.component";
+import React, { useEffect, useState } from "react";
+import { View, FlatList } from "react-native";
+import { ScheduleInfoCard } from "../components/schedule-info-card.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import styled from "styled-components/native";
 
 import { ActivityIndicator, Colors } from "react-native-paper";
-import { TopBarComponent } from "../components/topbar.component";
+import { TopBarComponent } from "../../workplace/components/topbar.component";
 
 import { useDispatch, useSelector } from "react-redux";
-import { allWorkplace } from "../../../store/modules/workplace/actions";
+import { getAgendamentos } from "../../../store/modules/workplace/actions";
+import moment from "moment/min/moment-with-locales";
+import { CancelModal } from "../components/cancel-modal.component";
+moment.locale("pt-br");
 
-const WorkplaceList = styled(FlatList).attrs({
+const ScheduleList = styled(FlatList).attrs({
   contentContainerStyle: {
     padding: 16,
   },
@@ -25,12 +28,12 @@ const LoadingView = styled(View)`
   left: 50%;
 `;
 
-export const WorkplaceScreen = ({ navigation }) => {
+export const ScheduleScreen = () => {
   const dispatch = useDispatch();
-  const { workplace, form } = useSelector((state) => state.workplace);
+  const { agendamentos, form } = useSelector((state) => state.workplace);
 
   useEffect(() => {
-    dispatch(allWorkplace());
+    dispatch(getAgendamentos());
   }, []);
 
   return (
@@ -41,25 +44,16 @@ export const WorkplaceScreen = ({ navigation }) => {
         </LoadingView>
       )}
       <TopBarComponent />
-      <WorkplaceList
-        data={workplace}
+      <ScheduleList
+        data={agendamentos}
         renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("WorkplaceDetail", {
-                  workplace: item,
-                })
-              }
-            >
-              <WorkplaceInfoCard workplace={item} />
-            </TouchableOpacity>
-          );
+          return <ScheduleInfoCard agendamentos={item} />;
         }}
         keyExtractor={(item) => item._id}
         // eslint-disable-next-line react-native/no-inline-styles
         contentContainerStyle={{ padding: 16 }}
       />
+      <CancelModal form={form} />
     </SafeArea>
   );
 };

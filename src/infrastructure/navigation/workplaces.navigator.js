@@ -5,6 +5,8 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import { WorkplaceScreen } from "../../features/workplace/screens/workplace.screens";
+import { BookingScreen } from "../../features/booking/screens/booking.screens";
+import CheckoutScreen from "../../features/booking/screens/checkout.screen";
 
 const WorkplaceStack = createStackNavigator();
 const createScreenOptions = () => {
@@ -19,6 +21,8 @@ export const WorkplacesNavigator = () => {
         name="WorkplaceDetail"
         component={WorkplaceDetailScreen}
       />
+      <WorkplaceStack.Screen name="BookingDetail" component={BookingScreen} />
+      <WorkplaceStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     </WorkplaceStack.Navigator>
   );
 };

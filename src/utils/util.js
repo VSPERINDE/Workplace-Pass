@@ -28,24 +28,28 @@ export default {
 
     return hex + alphas[alpha];
   },
-  selectAgendamento: (agenda, data = null, colaboradorId = null) => {
+  selectAgendamento: (agenda, data = null, servicoId = null) => {
     let horariosDisponiveis = [];
-    let colaboradoresDia = [];
+    let servicosDia = [];
 
     if (agenda.length > 0) {
       data = data || Object.keys(agenda?.[0])?.[0];
       const dia = agenda.filter((a) => Object.keys(a)[0] === data)?.[0];
       const diaObject = dia?.[data];
       if (diaObject) {
-        colaboradorId = colaboradorId || Object.keys(diaObject)?.[0];
-        colaboradoresDia = diaObject;
-        horariosDisponiveis = diaObject?.[colaboradorId];
+        servicoId = servicoId || Object.keys(diaObject)?.[0];
+        servicosDia = diaObject;
+        horariosDisponiveis = diaObject?.[servicoId];
       }
     }
 
-    return { horariosDisponiveis, data, colaboradorId, colaboradoresDia };
+    return { horariosDisponiveis, data, servicoId, servicosDia };
   },
   AWS: {
     bucketURL: "https://wup-dev.s3.amazonaws.com",
+  },
+  hourToMinutes: (hourMinute) => {
+    const [hour, minutes] = hourMinute.split(":");
+    return parseInt(parseInt(hour) * 60 + parseInt(minutes));
   },
 };

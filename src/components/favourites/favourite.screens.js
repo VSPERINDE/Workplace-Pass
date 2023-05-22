@@ -32,7 +32,7 @@ export const FavouriteScreen = ({ navigation }) => {
             </TouchableOpacity>
           );
         }}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item._id}
         // eslint-disable-next-line react-native/no-inline-styles
         contentContainerStyle={{ padding: 16 }}
       />
