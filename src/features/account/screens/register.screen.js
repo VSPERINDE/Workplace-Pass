@@ -21,6 +21,7 @@ export const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const { onRegister, isLoading, error } = useContext(AuthenticationContext);
+
   return (
     <AccountBackground>
       <AccountCover />
@@ -66,7 +67,9 @@ export const RegisterScreen = ({ navigation }) => {
             <AuthButton
               icon="email"
               mode="contained"
-              onPress={() => onRegister(email, password, repeatedPassword)}
+              onPress={() => {
+                onRegister(email, password, repeatedPassword);
+              }}
             >
               Register
             </AuthButton>

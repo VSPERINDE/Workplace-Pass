@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { WorkplacesNavigator } from "./workplaces.navigator";
-import { MapScreen } from "../../features/map/screens/map.screen";
 import { FavouriteScreen } from "../../components/favourites/favourite.screens";
-import { WorkplaceContextProvider } from "../../services/workplaces/workplaces.context";
-import { LocationContextProvider } from "../../services/locations/location.context";
 import { FavouritesContextProvider } from "../../services/favourites/favourites.context";
-import { SettingsScreen } from "../../features/settings/screens/settings.screens";
 import { SettingsNavigator } from "./settings.navigator";
+import { updateAgendamento } from "../../store/modules/workplace/actions";
+import { useDispatch } from "react-redux";
+import { AuthenticationContext } from "../../services/authentication/authentication.context";
+import { ScheduleScreen } from "../../features/schedule/screens/schedule.screen";
 
 const Tab = createBottomTabNavigator();
 
 const tabIcon = {
-  Workplaces: "md-home",
-  Map: "md-map",
-  Settings: "md-settings",
-  Favourites: "md-heart",
+  Home: "md-home",
+  Agenda: "md-book",
+  Conta: "md-settings",
+  Favoritos: "md-heart",
 };
 
 const createScreenOptions = ({ route }) => {
@@ -31,17 +31,22 @@ const createScreenOptions = ({ route }) => {
   };
 };
 
-export const AppNavigator = () => (
-  <FavouritesContextProvider>
-    <LocationContextProvider>
-      <WorkplaceContextProvider>
-        <Tab.Navigator screenOptions={createScreenOptions}>
-          <Tab.Screen name="Workplaces" component={WorkplacesNavigator} />
-          <Tab.Screen name="Map" component={MapScreen} />
-          <Tab.Screen name="Favourites" component={FavouriteScreen} />
-          <Tab.Screen name="Settings" component={SettingsNavigator} />
-        </Tab.Navigator>
-      </WorkplaceContextProvider>
-    </LocationContextProvider>
-  </FavouritesContextProvider>
-);
+export const AppNavigator = () => {
+  const { user } = useContext(AuthenticationContext);
+
+  const dispatch = useDispatch();
+  const userId = user._id;
+
+  dispatch(updateAgendamento("clienteId", userId));
+
+  return (
+    <FavouritesContextProvider>
+      <Tab.Navigator screenOptions={createScreenOptions}>
+        <Tab.Screen name="Home" component={WorkplacesNavigator} />
+        <Tab.Screen name="Agenda" component={ScheduleScreen} />
+        <Tab.Screen name="Favoritos" component={FavouriteScreen} />
+        <Tab.Screen name="Conta" component={SettingsNavigator} />
+      </Tab.Navigator>
+    </FavouritesContextProvider>
+  );
+};

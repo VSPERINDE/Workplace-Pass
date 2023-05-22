@@ -1,0 +1,55 @@
+import moment from "moment";
+
+export default {
+  diasSemana: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+  toAlpha: (hex, alpha) => {
+    const alphas = {
+      100: "FF",
+      95: "F2",
+      90: "E6",
+      85: "D9",
+      80: "CC",
+      75: "BF",
+      70: "B3",
+      65: "A6",
+      60: "99",
+      55: "8C",
+      50: "80",
+      45: "73",
+      40: "66",
+      35: "59",
+      30: "4D",
+      25: "40",
+      20: "33",
+      15: "26",
+      10: "1A",
+      5: "0D",
+    };
+
+    return hex + alphas[alpha];
+  },
+  selectAgendamento: (agenda, data = null, servicoId = null) => {
+    let horariosDisponiveis = [];
+    let servicosDia = [];
+
+    if (agenda.length > 0) {
+      data = data || Object.keys(agenda?.[0])?.[0];
+      const dia = agenda.filter((a) => Object.keys(a)[0] === data)?.[0];
+      const diaObject = dia?.[data];
+      if (diaObject) {
+        servicoId = servicoId || Object.keys(diaObject)?.[0];
+        servicosDia = diaObject;
+        horariosDisponiveis = diaObject?.[servicoId];
+      }
+    }
+
+    return { horariosDisponiveis, data, servicoId, servicosDia };
+  },
+  AWS: {
+    bucketURL: "https://wup-dev.s3.amazonaws.com",
+  },
+  hourToMinutes: (hourMinute) => {
+    const [hour, minutes] = hourMinute.split(":");
+    return parseInt(parseInt(hour) * 60 + parseInt(minutes));
+  },
+};

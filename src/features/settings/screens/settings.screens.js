@@ -22,6 +22,7 @@ const Avatar = styled(Image)`
 
 export const SettingsScreen = ({ navigation }) => {
   const { onLogout, user } = useContext(AuthenticationContext);
+
   return (
     <SafeArea>
       <AvatarContainer>

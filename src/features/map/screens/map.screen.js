@@ -20,6 +20,7 @@ export const MapScreen = ({ navigation }) => {
   useEffect(() => {
     const northeastLat = viewport.northeast.lat;
     const southwestLat = viewport.southwest.lat;
+
     setLatDelta(northeastLat - southwestLat);
   }, [location, viewport]);
 
@@ -31,7 +32,7 @@ export const MapScreen = ({ navigation }) => {
           latitude: lat,
           longitude: lng,
           latitudeDelta: latDelta,
-          longitudeDelta: 0.02,
+          longitudeDelta: 0.01,
         }}
       >
         {workplace.map((workplaces) => {
@@ -43,9 +44,7 @@ export const MapScreen = ({ navigation }) => {
             <Marker
               key={workplaces.name}
               title={workplaces.name}
-              coordinate={{
-                LatLng,
-              }}
+              coordinate={LatLng}
             >
               <Callout
                 onPress={() =>

@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { View, FlatList, TouchableOpacity } from "react-native";
 import { WorkplaceInfoCard } from "../components/workplace-info-card.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import styled from "styled-components/native";
-import { WorkplaceContext } from "../../../services/workplaces/workplaces.context";
+
 import { ActivityIndicator, Colors } from "react-native-paper";
-import { Search } from "../components/search.component";
 import { TopBarComponent } from "../components/topbar.component";
+
+import { useDispatch, useSelector } from "react-redux";
+import { allWorkplace } from "../../../store/modules/workplace/actions";
 
 const WorkplaceList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -24,16 +26,21 @@ const LoadingView = styled(View)`
 `;
 
 export const WorkplaceScreen = ({ navigation }) => {
-  const { workplace, isLoading } = useContext(WorkplaceContext);
+  const dispatch = useDispatch();
+  const { workplace, form } = useSelector((state) => state.workplace);
+
+  useEffect(() => {
+    dispatch(allWorkplace());
+  }, []);
+
   return (
     <SafeArea>
-      {isLoading && (
+      {form.isLoading && (
         <LoadingView>
           <Loading size={50} animating={true} color={Colors.yellow500} />
         </LoadingView>
       )}
       <TopBarComponent />
-      <Search />
       <WorkplaceList
         data={workplace}
         renderItem={({ item }) => {
@@ -49,7 +56,7 @@ export const WorkplaceScreen = ({ navigation }) => {
             </TouchableOpacity>
           );
         }}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item._id}
         // eslint-disable-next-line react-native/no-inline-styles
         contentContainerStyle={{ padding: 16 }}
       />

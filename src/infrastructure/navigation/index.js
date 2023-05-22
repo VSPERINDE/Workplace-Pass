@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { AppNavigator } from "./app.navigator";
 import { AccountNavigator } from "./account.navigator";
-
+import { AppNavigator } from "./app.navigator";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
 
 export const Navigation = () => {

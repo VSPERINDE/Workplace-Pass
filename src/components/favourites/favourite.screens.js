@@ -4,7 +4,6 @@ import { WorkplaceInfoCard } from "../../features/workplace/components/workplace
 import { SafeArea } from "../../components/utility/safe-area.component";
 import styled from "styled-components/native";
 import { FavouritesContext } from "../../services/favourites/favourites.context";
-import { Search } from "../../features/workplace/components/search.component";
 import { TopBarComponent } from "../../features/workplace/components/topbar.component";
 
 const WorkplaceList = styled(FlatList).attrs({
@@ -18,7 +17,6 @@ export const FavouriteScreen = ({ navigation }) => {
   return (
     <SafeArea>
       <TopBarComponent />
-      <Search />
       <WorkplaceList
         data={favourites}
         renderItem={({ item }) => {
@@ -34,7 +32,7 @@ export const FavouriteScreen = ({ navigation }) => {
             </TouchableOpacity>
           );
         }}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item._id}
         // eslint-disable-next-line react-native/no-inline-styles
         contentContainerStyle={{ padding: 16 }}
       />

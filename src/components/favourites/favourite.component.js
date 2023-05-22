@@ -16,7 +16,7 @@ export const Favourite = ({ workplace }) => {
   const { favourites, addToFavourites, removeFromFavourites } =
     useContext(FavouritesContext);
 
-  const isFavourite = favourites.find((r) => r.placeId === workplace.placeId);
+  const isFavourite = favourites.find((r) => r._id === workplace._id);
   return (
     <FavouriteButton
       onPress={() =>
