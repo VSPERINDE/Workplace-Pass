@@ -197,6 +197,7 @@ export function* removeAgendamento(key) {
     );
 
     yield put(updateForm("agendamentoLoading", false));
+    yield put(resetAgendamentos());
   } catch (err) {
     alert(err.message);
   }

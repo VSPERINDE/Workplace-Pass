@@ -1,5 +1,11 @@
-import React, { useEffect } from "react";
-import { View, FlatList, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import { WorkplaceInfoCard } from "../components/workplace-info-card.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import styled from "styled-components/native";
@@ -28,10 +34,16 @@ const LoadingView = styled(View)`
 export const WorkplaceScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { workplace, form } = useSelector((state) => state.workplace);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     dispatch(allWorkplace());
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(false);
+    dispatch(allWorkplace());
+  };
 
   return (
     <SafeArea>
@@ -40,26 +52,33 @@ export const WorkplaceScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={Colors.yellow500} />
         </LoadingView>
       )}
-      <TopBarComponent />
-      <WorkplaceList
-        data={workplace}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("WorkplaceDetail", {
-                  workplace: item,
-                })
-              }
-            >
-              <WorkplaceInfoCard workplace={item} />
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={(item) => item._id}
-        // eslint-disable-next-line react-native/no-inline-styles
-        contentContainerStyle={{ padding: 16 }}
-      />
+      <TopBarComponent navigation={navigation}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <WorkplaceList
+            data={workplace}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("WorkplaceDetail", {
+                      workplace: item,
+                    })
+                  }
+                >
+                  <WorkplaceInfoCard workplace={item} />
+                </TouchableOpacity>
+              );
+            }}
+            keyExtractor={(item) => item._id}
+            // eslint-disable-next-line react-native/no-inline-styles
+            contentContainerStyle={{ padding: 16 }}
+          />
+        </ScrollView>
+      </TopBarComponent>
     </SafeArea>
   );
 };

@@ -38,7 +38,6 @@ export const CancelModal = ({ form }) => {
               align="center"
               success
               onPress={() => {
-                console.log(form.modalCancelId);
                 dispatch(removeAgendamento(form.modalCancelId));
                 dispatch(updateForm("modalCancel", false));
               }}

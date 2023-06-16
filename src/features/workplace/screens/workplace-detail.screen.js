@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { List } from "react-native-paper";
 import { FlatList, Linking, ScrollView } from "react-native";
 import { WorkplaceInfoCard } from "../components/workplace-info-card.component";
-import { SafeArea } from "../../../components/utility/safe-area.component";
+import { SafeAreaDetail } from "../../../components/utility/safe-area.component";
 import { ServicoList } from "../components/servicos-list.component";
 import {
   Button,
@@ -28,7 +28,7 @@ export const WorkplaceDetailScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <SafeArea>
+    <SafeAreaDetail>
       <WorkplaceInfoCard workplace={workplace} />
       <ScrollView>
         <List.Accordion
@@ -40,7 +40,7 @@ export const WorkplaceDetailScreen = ({ route, navigation }) => {
           <List.Item title="Endereço:" description={workplace.endereco.rua} />
           <List.Item
             title="Horário de funcionamento:"
-            //description={workplace.todosHorarios}
+            description="8:00 às 18:00"
           />
           <List.Item
             title="Quantidade de mesas: "
@@ -141,6 +141,6 @@ export const WorkplaceDetailScreen = ({ route, navigation }) => {
       >
         Agendar Agora
       </Button>
-    </SafeArea>
+    </SafeAreaDetail>
   );
 };

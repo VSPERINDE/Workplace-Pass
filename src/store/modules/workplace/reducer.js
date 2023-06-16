@@ -12,7 +12,7 @@ const INITIAL_STATE = {
     agendamentoLoading: false,
     isLoading: false,
     modalCancel: false,
-    modalCancelId: "",
+    modalCancelId: 0,
   },
   workplace: [],
   servicos: [],
@@ -83,14 +83,16 @@ function workplace(state = INITIAL_STATE, action) {
     }
     case types.UPDATE_AGENDAMENTOS: {
       return produce(state, (draft) => {
-        draft.agendamentos = _.uniq([
+        /*draft.agendamentos = _.uniq([
           ...draft.agendamentos,
           ...action.agendamentos,
-        ]);
+        ]);*/
+        draft.agendamentos = [...draft.agendamentos, ...action.agendamentos];
       });
     }
     case types.RESET_AGENDAMENTOS: {
       return produce(state, (draft) => {
+        draft.agenda = INITIAL_STATE.agenda;
         draft.agendamentos = INITIAL_STATE.agendamentos;
       });
     }
