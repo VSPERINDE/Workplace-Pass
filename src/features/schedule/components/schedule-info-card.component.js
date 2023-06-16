@@ -11,7 +11,9 @@ import {
 } from "./schedule-card.styles";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment/min/moment-with-locales";
-import { updateForm } from "../../../store/modules/workplace/actions";
+import {
+  updateForm,
+} from "../../../store/modules/workplace/actions";
 moment.locale("pt-br");
 
 export const ScheduleInfoCard = ({ agendamentos }) => {

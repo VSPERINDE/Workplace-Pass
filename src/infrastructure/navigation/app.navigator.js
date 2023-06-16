@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { WorkplacesNavigator } from "./workplaces.navigator";
@@ -38,6 +38,8 @@ export const AppNavigator = () => {
   const userId = user._id;
 
   dispatch(updateAgendamento("clienteId", userId));
+
+  useEffect(() => {}, []);
 
   return (
     <FavouritesContextProvider>

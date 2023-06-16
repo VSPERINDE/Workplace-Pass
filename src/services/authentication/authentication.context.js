@@ -53,7 +53,6 @@ export const AuthenticationContextProvider = ({ children }) => {
   };
 
   const onLogout = () => {
-    AsyncStorage.clear();
     AsyncStorage.removeItem("@user");
     setUser(null);
     setError(null);
